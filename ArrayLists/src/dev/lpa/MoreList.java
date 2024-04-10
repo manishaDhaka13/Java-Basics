@@ -17,7 +17,7 @@ public class MoreList {
        // list.add("yogurt");  // Exception in thread "main" java.lang.UnsupportedOperationException
 
         // but we can create ArrayList using List
-        // ArrayList is mutable
+        // ArrayList is mutable and Array is also mutable means we can change the value but we can't add or delete element
 
         ArrayList<String> groceries = new ArrayList<>(list);  // it will take the element of list and make a ArrayList of item
                                                                // now ArrayList is mutable so we can add element in it (resize it)
@@ -35,3 +35,4 @@ public class MoreList {
         System.out.println(groceries);   // [apples, bananas, milk, eggs, yogurt, pickles, muserd, cheese]
     }
 }
+//
