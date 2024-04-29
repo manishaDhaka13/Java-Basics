@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Main {
     // An ArrayList is implement on top of array , behind the scene the address of value in ArrayList is stored
@@ -26,6 +27,14 @@ public class Main {
          addMoreElements(placesToVisit);
          System.out.println(placesToVisit);
          geetingElements(placesToVisit);
+         System.out.println(placesToVisit);
+         printItinerary(placesToVisit);
+        System.out.println(placesToVisit);
+        printItinerary2(placesToVisit);
+        System.out.println(placesToVisit);
+        printItinerary3(placesToVisit);
+        testIterator(placesToVisit);
+        testIterator1(placesToVisit);
     }
 
     // LinkedList method
@@ -80,6 +89,7 @@ public class Main {
         String p4 = list.pop(); // remove first element
         System.out.println(p4+ " was removed");
         System.out.println(list);
+
     }
     private static void geetingElements(LinkedList<String> list){
         System.out.println(" 5th element of list "+list.get(4));
@@ -99,5 +109,84 @@ public class Main {
         System.out.println(" Element from peek() = " + list.peek());   // list.peek() get element from start of LinkedList
         System.out.println(" Element from peekFirst() = "+ list.peekFirst());
         System.out.println(" Element from peekLast() = " + list.peekLast());   // last element of LinkedList
+    }
+
+    // traversing and manuplating the element in LinkedList
+    public static void printItinerary(LinkedList<String> list){
+        System.out.println("Trip starts at " + list.getFirst());
+        for(int i=1 ; i< list.size() ; i++){
+            System.out.println(" -->from: "+ list.get(i-1) +" to "+ list.get(i));
+        }
+
+        System.out.println("Trip ends at  "+ list.getLast());
+    }
+    public static void printItinerary2(LinkedList<String> list){
+        System.out.println("Trip starts at " + list.getFirst());
+        String previousCity = list.getFirst();
+        for(String city : list){
+            System.out.println("-->from: "+ previousCity + " to "+ city);
+            previousCity=city;
+
+        }
+        System.out.println("Trip ends at  "+ list.getLast());
+    }
+    public static void printItinerary3(LinkedList<String> list){
+        System.out.println("Trip starts at " + list.getFirst());
+        String previousCity = list.getFirst();
+        //ListIterator<String> iterator = list.listIterator();    // ListIterator is a type that got assign a listiterator
+                                                          // with the help of iterator we can traverse through loop
+                                                       // listIterator() create a iterator cursor is before index 0
+                                   // after the iterator.next() curser goes to between index 0 to index 1 and so on then in last it goes(points) to after last index
+                                                       //  next of iterator goes index 0 to index 1 to index n
+// a listIterator can be used to go both forward and backword and in addition to the remove method , it also support add and set method
+        ListIterator<String> iterator = list.listIterator(1);  // cursor will be between index 0 to index 1
+                                                                      // so the iterator.next() will be index 1 value
+                                                                     // iterator.previous() will be index 0
+
+        while(iterator.hasNext()){  // iterator.hasNext() return true if iterator have next element
+            var city = iterator.next();   // move to the next and return the value // retrieve the element
+            System.out.println("-->from: "+ previousCity + " to "+ city);
+            previousCity=city;
+
+        }
+        System.out.println("Trip ends at  "+ list.getLast());
+    }
+    public static void testIterator(LinkedList<String> list){
+        System.out.println("testing "+list);
+        var iterator = list.iterator();   // create a iterator that traverse through list but move only forward and support only remove method
+
+        while(iterator.hasNext()){
+            //System.out.println(iterator.next());
+            if(iterator.next().equals("Brisbane")){
+              //  list.remove();  // Exception in thread "main" java.util.ConcurrentModificationException , we can't use list.remove() when looping
+                               // but we can call this on iterator
+                iterator.remove();
+            }
+        }
+        System.out.println(list);
+    }
+    public static void testIterator1(LinkedList<String> list){
+        System.out.println("testing "+list);
+        var iterator = list.listIterator();   // create a listiterator that traverse through list but move  forward and backword and support add. set ,remove method
+                                          // Iterator's cursor positions, are between the elemments (in start before first element , after traversing all list , after the last element)
+        while(iterator.hasNext()){
+            //System.out.println(iterator.next());
+            if(iterator.next().equals("Drawin")){
+                //  list.remove();  // Exception in thread "main" java.util.ConcurrentModificationException , we can't use list.remove() when looping
+                // but we can call this on iterator
+                //iterator.remove();
+                iterator.add("Lake ");  // add after Drawin
+            }
+            // after the above loop ends the iterator.hasNext() become false and the cursor at the after last element
+            // we move backword using iterator.previous()
+
+        }
+        while(iterator.hasPrevious()){
+            System.out.println(iterator.previous());
+        }
+        System.out.println(list);
+        var iterator2 = list.listIterator(3);  // cursor wil be between index 2 and index 3
+        //System.out.println(iterator2.next());
+        System.out.println(iterator2.previous());
     }
 }

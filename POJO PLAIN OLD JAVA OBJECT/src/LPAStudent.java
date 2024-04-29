@@ -6,7 +6,8 @@ public record LPAStudent(String id, String name, String dateOfBirth, String clas
     //getter are called accesser in record but record does not use get prefix
     // there is no setter in record
     // in record there is implicit constructor , accesser and toString method we don't have to write them
-    //in record there will always be a implicit constructor even when we write a constructor in it
+    //in record there will always be a implicit constructor even when we write a overloaded constructor in it and we should
+    // call the default constructor in first line
     // record object is created like this
     // LPAStudent recordStudent=new LPAStudent("6546","gsdgfdg","4/7/1992","java");
 
